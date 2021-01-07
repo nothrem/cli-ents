@@ -1,4 +1,4 @@
-# Convert images to WEBP
+# Convert audio to AAC
 
 ## Requirements:
 * Nero AAC encoder (https://www.videohelp.com/software/Nero-AAC-Codec)
