@@ -34,7 +34,7 @@ The script **primarily creates AAC LC** but uses auto-detection and may produce 
 in case the source file has higher quality than what AAC LC supports. HE-AAC is backward
 compatible with players that support only AAC LC.
 
-The script is intended for audio sources with lower quality, such as MP3 128kbps or lower.
+**The script is intended for audio sources with lower quality, such as MP3 128kbps or lower.**
 
 --------
 
@@ -65,12 +65,12 @@ and which converts AAC into a 1-channel file with second differential (hidden) t
 AAC with PS track is called HEv2; HE-AAC without PS is sometimes called HEv1 (or just HE).
 
 The script always **creates HE-AAC**. First it tries to check if the source file
-is 2-channel (stereo) and for such source creates HEv2 (aka Parametric stereo).
-For 1-channel (mono) or multi-channel (surround, 5.1, 7.1, etc.) source creates
+is 2-channel (stereo) and for such source it creates HEv2 (aka Parametric stereo).
+For 1-channel (mono) or multi-channel (surround, 5.1, 7.1, etc.) source it creates
 HE-AAC file. Please note that HE-AAC is still identified as "AAC LC" in some programs;
 to recognize HE-AAC check additional flags "+ SBR" (i.e. HEv1) and/or "+ PS" (HEv2).
 
-The script is intended for audio sources with higher quality, such as AC3, DTS or MP3 320kbps.
+**The script is intended for audio sources with higher quality, such as AC3, DTS or MP3 320kbps.**
 
 Note that the quality auto-detection (when you use 100% quality) may not work correctly
 for some MP3 or AC3 sources and may produce AAC file that is larger than the original.

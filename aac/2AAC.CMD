@@ -84,7 +84,7 @@ if 100 == %AAC_quality% set AACQ=1.0
 if not 100 == %AAC_quality% set AACQ=0.%AAC_quality%
 echo.
 rem note: -2pass can be used only for -br a -cbr
-set command=%AAC% -lc -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.m4a"
+set command=%AAC% -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.m4a"
 echo %command%
 %command%
 
