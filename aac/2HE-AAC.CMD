@@ -65,7 +65,7 @@ goto end
 
 :test_ext
 set /A processed=%processed% + 1
-set title=[%processed%/%total%] Converting "%inputname%" to HE-AAC with quality %AAC_quality%...
+set title=[%processed%/%total%] Converting "%inputname%" to HE-AAC with quality %AAC_quality%%%...
 title %title%...
 echo.
 echo %title%...
@@ -90,7 +90,7 @@ if 100 == %AAC_quality% set AACQ=1.0
 if not 100 == %AAC_quality% set AACQ=0.%AAC_quality%
 echo.
 rem note: -2pass can be used only for -br a -cbr
-set command=%AAC% -hev2 -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a"
+set command=%AAC% -hev2 -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.HEv2~%aac_quality%.m4a"
 echo %command%
 %command%
 
@@ -101,7 +101,7 @@ goto done_wav
 echo.
 echo HE-AAC v2 (aka Parametric Stereo) is supported only for 2-channel input. Fallbacking to HE-AAC...
 echo.
-set command=%AAC% -he -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.HE.m4a"
+set command=%AAC% -he -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.HE~%aac_quality%.m4a"
 echo %command%
 %command%
 
@@ -148,14 +148,14 @@ echo Copying Metadata from MP3/FLAC into M4A...
 rem From original MP3 we will copy metadata and also all streams (video, pictures, text, etc.) except audio and then add audio from second (AAC) file. This way we will copy ID3 and Cover Art into new file.
 set tags="%inputdir%%inputname%%fileext%"
 if exist "%inputdir%..\%inputname%.mp3" set tags="%inputdir%..\%inputname%.mp3"
-set audio=%inputname%.%aac_quality%%%.HE.m4a
-if exist "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a" set audio=%inputname%.%aac_quality%%%.HEv2.m4a
-set command=%FFMPEG% -hide_banner -y -i %tags% -i "%inputdir%%audio%" -c copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.%aac_quality%%%.tmp.m4a" copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.%aac_quality%%%.tmp.m4a"
+set audio=%inputname%.HE~%aac_quality%.m4a
+if exist "%inputdir%%inputname%.HEv2~%aac_quality%.m4a" set audio=%inputname%.HEv2~%aac_quality%.m4a
+set command=%FFMPEG% -hide_banner -y -i %tags% -i "%inputdir%%audio%" -c copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.HE~%aac_quality%.tmp.m4a" copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.HE~%aac_quality%.tmp.m4a"
 echo %command%
 %command%
 rem FFMPEG cannot edit existing files so we must first same new file into TMP, delete original and rename TMP to original name
 del "%inputdir%%audio%"
-ren "%inputname%.%aac_quality%%%.tmp.m4a" "%audio%"
+ren "%inputname%.HE~%aac_quality%.tmp.m4a" "%audio%"
 
 shift
 
@@ -185,14 +185,14 @@ echo %command%
 rem Prepare merge command based on what files are available
 set command=%FFMPEG% -hide_banner -y -i "%inputdir%%inputname%%fileext%"
 set command=%command% -i "%TMP_VIDEO%"
-if exist "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a" set command=%command% -i "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a"
-if exist "%inputdir%%inputname%.%aac_quality%%%.HE.m4a"   set command=%command% -i "%inputdir%%inputname%.%aac_quality%%%.HE.m4a"
+if exist "%inputdir%%inputname%.HEv2~%aac_quality%.m4a" set command=%command% -i "%inputdir%%inputname%.HEv2~%aac_quality%.m4a"
+if exist "%inputdir%%inputname%.HE~%aac_quality%.m4a"   set command=%command% -i "%inputdir%%inputname%.HE~%aac_quality%.m4a"
 if exist "%TMP_OTHER%" set command=%command% -i "%TMP_OTHER%"
 set command=%command% -map 1 -map 2:a
 if exist "%TMP_OTHER%" set command=%command% -map 3
 set command=%command% -map_metadata 0 -c copy
-if exist "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a" set command=%command% "%inputdir%%inputname%.HEv2.%aac_quality%%%%fileext%"
-if exist "%inputdir%%inputname%.%aac_quality%%%.HE.m4a"   set command=%command% "%inputdir%%inputname%.HE.%aac_quality%%%%fileext%"
+if exist "%inputdir%%inputname%.HEv2~%aac_quality%.m4a" set command=%command% "%inputdir%%inputname%.HEv2~%aac_quality%%fileext%"
+if exist "%inputdir%%inputname%.HE~%aac_quality%.m4a"   set command=%command% "%inputdir%%inputname%.HE~%aac_quality%%fileext%"
 
 echo.
 echo Creating final file...
@@ -200,8 +200,8 @@ echo %command%
 %command%
 
 rem Comment these lines for debugging to see what files are created during conversion
-if exist "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a" del "%inputdir%%inputname%.%aac_quality%%%.HEv2.m4a"
-if exist "%inputdir%%inputname%.%aac_quality%%%.HE.m4a" del "%inputdir%%inputname%.%aac_quality%%%.HE.m4a"
+if exist "%inputdir%%inputname%.HEv2~%aac_quality%.m4a" del "%inputdir%%inputname%.HEv2~%aac_quality%.m4a"
+if exist "%inputdir%%inputname%.HE~%aac_quality%.m4a" del "%inputdir%%inputname%.HE~%aac_quality%.m4a"
 del "%TMP_VIDEO%"
 del "%TMP_OTHER%"
 
