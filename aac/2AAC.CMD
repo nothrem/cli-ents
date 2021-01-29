@@ -84,7 +84,7 @@ if 100 == %AAC_quality% set AACQ=1.0
 if not 100 == %AAC_quality% set AACQ=0.%AAC_quality%
 echo.
 rem note: -2pass can be used only for -br a -cbr
-set command=%AAC% -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.m4a"
+set command=%AAC% -ignorelength -q %AACQ% -if "%filename%" -of "%inputdir%%inputname%.%aac_quality%%%.m4a"
 echo %command%
 %command%
 
@@ -149,15 +149,15 @@ echo Merging video and new audio...
 echo.
 
 echo Exporting original video streams...
-set TMP_VIDEO="%inputdir%%inputname%.video.tmp.mkv"
-if "1" == "%use_temp%" set TMP_VIDEO=%tmp%\%inputname%.video.tmp.mkv
+set TMP_VIDEO="%inputdir%%inputname%.video.tmp.%fileext%"
+if "1" == "%use_temp%" set TMP_VIDEO=%tmp%\%inputname%.video.tmp.%fileext%
 set command=%FFMPEG% -hide_banner -y -i "%inputdir%%inputname%%fileext%" -map 0:v -c copy "%TMP_VIDEO%"
 echo %command%
 %command%
 
 echo.
-set TMP_OTHER="%inputdir%%inputname%.other.tmp.mkv"
-if "1" == "%use_temp%" set TMP_OTHER=%tmp%\%inputname%.other.tmp.mkv
+set TMP_OTHER="%inputdir%%inputname%.other.tmp.%fileext%"
+if "1" == "%use_temp%" set TMP_OTHER=%tmp%\%inputname%.other.tmp.%fileext%
 echo Exporting additional streams...  (note: this may throw error, which is OK if the file contains only video stream(s) and one audio stream)
 set command=%FFMPEG% -hide_banner -y -i "%inputdir%%inputname%%fileext%" -map 0 -map -0:v -map -0:a:%track% -c copy "%TMP_OTHER%"
 echo %command%
