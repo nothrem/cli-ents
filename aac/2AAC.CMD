@@ -30,7 +30,7 @@ set AAC=%~dp0neroAacEnc.exe
 if exist %~dp0bin/neroAacEnc.exe set AAC=%~dp0bin/neroAacEnc.exe
 rem Path to FFMPEG
 set FFMPEG=%~dp0ffmpeg.exe
-if exist %~dp0bin/ffmpeg.exeset FFMPEG=%~dp0bin/ffmpeg.exe
+if exist %~dp0bin/ffmpeg.exe set FFMPEG=%~dp0bin/ffmpeg.exe
 
 if NOT exist "%AAC%" goto error_AAC
 
@@ -131,7 +131,7 @@ rem From original MP3 we will copy metadata and also all streams (video, picture
 set tags="%inputdir%%inputname%%fileext%"
 if exist "%inputdir%..\%inputname%.mp3" set tags="%inputdir%..\%inputname%.mp3"
 set audio=%inputname%.%aac_quality%%%.m4a
-set command=%FFMPEG% -hide_banner -y -i %tags% -i "%inputdir%%audio%" -c copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.%aac_quality%%%.tmp.m4a" copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.%aac_quality%%%.tmp.m4a"
+set command=%FFMPEG% -hide_banner -y -i %tags% -i "%inputdir%%audio%" -c copy -map 0 -map -0:a -map 1:a -map_metadata 0 "%inputname%.%aac_quality%%%.tmp.m4a"
 echo %command%
 %command%
 rem FFMPEG cannot edit existing files so we must first same new file into TMP, delete original and rename TMP to original name
