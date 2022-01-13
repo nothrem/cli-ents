@@ -16,3 +16,5 @@
 /_includes/php/php4ts.dll
 /_includes/php/php5ts.dll
 /_includes/php/php7ts.dll
+
+/_includes/*/calc.evb
