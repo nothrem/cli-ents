@@ -1,6 +1,18 @@
 /.idea/*
 *.log
-*.exe
 
-*.dll
+/aac/*.exe
+/aac/bin/*.exe
+/aac/*.dll
+/aac/bin/*.dll
+/avif/*.exe
+/avif/bin/*.exe
+/png/*.exe
 /png/*.bat
+/png/bin/*.exe
+/webp/*.exe
+/webp/bin/*.exe
+
+/_includes/php/php4ts.dll
+/_includes/php/php5ts.dll
+/_includes/php/php7ts.dll
