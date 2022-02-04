@@ -9,7 +9,9 @@
 
 ## Usage
 * download selected *.cmd script
-* download the tool(s) of your preferrence
+    * `bestPNG` uses all the above tools
+    * `fastPNG` does not use APNGASM and APNG optimizer because ZopfliPNG can, in most cases, created smaller file from the original than from the animated version
+* download the tool(s) of your preference
 * place the script and the tool into same folder ~~(or place the tool inside `bin` sub-folder)~~
 * Drag and drop selected PNG images onto the script (or its LNK Shortcut).
 * Wait until all images are processed.
@@ -33,6 +35,9 @@ If this tool is used, the script will create two files (normal and animated), op
 
 This tool is based on APNG format and uses some of its features to optimize the PNG and save few more bytes. One of the features
 is using 7ZIP instead of zlib/deflate compression.
+
+If the ZopfliPNG is used, this tool does not make much sense because it's biggest advantage - more efficient 7zip compression - 
+is overpowered by the much better zopfli compression.
 
 ### OptiPNG
 
