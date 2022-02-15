@@ -19,7 +19,7 @@ if [] == [%1] goto error_param
 
 echo   Please set quality you want to use for the pictures.
 echo.
-set /p QUALITY="100 = best lossy, 0 = smallest file. [Default: 80]: "
+set /p QUALITY="100 = best quality, 1 = smallest file. [Default: %QUALITY%]: "
 
 
 :start
@@ -43,7 +43,7 @@ title %title%...
 echo.
 echo %title%...
 
-set command=%process_app% --quality=%QUALITY% --speed=1 --overwrite -o %output% "%filename%"
+set command=%process_app% --quality=%QUALITY% --speed=0 --overwrite -o %output% "%filename%"
 
 echo %command%>> %log%
 %command%

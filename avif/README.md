@@ -20,8 +20,12 @@ This script converts images into AVIF with selected quality.
 This script supports transparency and JPG-like quality settings.
 This script does not support LOSSLESS compression.
 
-This script may create images incompatible with Windows Explorer and MS paint.
-You need Paint.net or other tools to see or edit produced images.
+Know issues: 
+* Older versions of the `cavif` tool may generate pictures that are not compatible with the newer versions of Chrome, Windows Explorer, MS paint and other browsers or applications. 
+Try to update the tool (see link above) to fix this issue. Use the other tools (such as Paint.net with AVIF plugin) if you still get a picture that cannot be displayed somewhere.
+* The `cavif` tool supports two color formats:  YUV (ycbcr; used by video formats PAL and HDTV) and RGB (used by computers).
+  The script only generates the YUV format and does not check which color space would generate smaller file (or higher quality picture).
+  But since AVIF is based on HEVC compression which is optimized for 8bit and 10bit YUV streams the RGB format would not be smaller in most cases (and a quick test shows RGB is twice as large as YUV). 
 
 ## Description of `2AVIF_QP`
 
@@ -43,3 +47,5 @@ When you fork this repository, you can place the tool directly into you Working 
 You can change the process_app variable if you want to use another tool with the script.
 
 You can change the QUALITY variable to set default quality. 
+
+You can change the parameter --speed to values 1 - 10 get faster processing at the cost of creating slightly larger files. 
