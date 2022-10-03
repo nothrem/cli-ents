@@ -27,7 +27,7 @@ rem cls
 
 rem Count how many files we need to process
 call :count_params %*
-set processed=1
+set processed=0
 rem END of count parameters
 
 :param
@@ -35,6 +35,7 @@ if [] == [%1] goto end
 
 set filename=%~1
 set output=%~dpn1.avif
+set /A processed=%processed% + 1
 
 
 :param_set
@@ -58,7 +59,6 @@ if "0" == "%ERRORLEVEL%" echo File "%output%" is smaller >> %log%
 if "1" == "%ERRORLEVEL%" echo Failed to get smaller version of "%filename%" >> %log%
 
 
-set /A processed=%processed% + 1
 shift
 echo.
 echo ---------------------------------------------------------------------

@@ -13,14 +13,14 @@ if NOT EXIST "%process_app%" goto error_app
 
 set log=%~dp02WEBP_auto.log
 
-set QUALITY=80
+set QUALITY=75
 
 if [] == [%1] goto error_param
 
 echo   Please set base quality you want to use for the pictures.
 echo   This script will try to find best quality that will produce smaller file than the original.
 echo.
-set /p QUALITY="100 = best quality, 0 = worst quality, smallest file. [Default: 80]: "
+set /p QUALITY="100 = best quality, 0 = worst quality, smallest file. [Default: %QUALITY%]: "
 
 
 :start
@@ -28,7 +28,7 @@ rem cls
 
 rem Count how many files we need to process
 call :count_params %*
-set processed=1
+set processed=0
 rem END of count parameters
 
 :param
@@ -37,6 +37,8 @@ if [] == [%1] goto end
 set filename=%~1
 set output=%~dpn1.webp
 set outQ=%QUALITY%
+set /A processed=%processed% + 1
+
 
 :param_set
 set title=[%processed%/%total%] Converting "%~nx1" to WEBP with %outQ%%% quality factor...
@@ -49,7 +51,7 @@ rem if exist %output% echo File %output% already exist. Skipping.
 rem if exist %output% echo File %output% already exist. Skipping. >> %LOG%
 rem if exist %output% goto :check_smaller
 
-set command=%process_app% -quiet -q %outQ% -preset photo -hint photo -m 6 -sharp_yuv -pass 10 -mt -alpha_filter best "%filename%" -o "%output%"
+set command=%process_app% -quiet -q %outQ% -preset photo -hint photo -m 6 -sharp_yuv -pass 10 -mt -af -alpha_filter best "%filename%" -o "%output%"
 
 echo %command% >> %log%
 %command%
@@ -73,7 +75,6 @@ goto :param_set
 
 
 :next
-set /A processed=%processed% + 1
 shift
 echo.
 echo ---------------------------------------------------------------------
