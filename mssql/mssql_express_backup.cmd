@@ -45,10 +45,12 @@ goto backup
 
 :US_date
 set now=%date:~6,4%-%date:~0,2%-%date:~3,2%_%time:~0,2%-%time:~3,2%-%time:~6,2%
+set now=%now: =0%
 goto backup
 
 :ISO_date
 set now=%date:~6,4%-%date:~3,2%-%date:~0,2%_%time:~0,2%-%time:~3,2%-%time:~6,2%
+set now=%now: =0%
 goto backup
 
 goto backup
