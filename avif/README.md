@@ -25,7 +25,10 @@ Know issues:
 Try to update the tool (see link above) to fix this issue. Use the other tools (such as Paint.net with AVIF plugin) if you still get a picture that cannot be displayed somewhere.
 * The `cavif` tool supports two color formats:  YUV (ycbcr; used by video formats PAL and HDTV) and RGB (used by computers).
   The script only generates the YUV format and does not check which color space would generate smaller file (or higher quality picture).
-  But since AVIF is based on HEVC compression which is optimized for 8bit and 10bit YUV streams the RGB format would not be smaller in most cases (and a quick test shows RGB is twice as large as YUV). 
+  But since AVIF is based on HEVC compression which is optimized for 8bit and 10bit YUV streams the RGB format would not be smaller in most cases (and a quick test shows RGB is twice as large as YUV).
+* Update: since version 1.5 (Dec 2022) this tool supports 10-bit RGB images which greatly improves speed and compression of JPG images.
+* Update: since version 1.5.3 (May 2023) this tool allows selecting 8-bit or 10-bit output. Since some (older) browsers does not support 10-bit correctly, this tool will force 8-bit output (at the cost of larger files).
+  (From my tests difference of 8-bit and 10-bit is no more that 2% and in many cases the 10-bit output is even larger than 8-bit.) 
 
 ## Description of `2AVIF_QP`
 

@@ -44,7 +44,7 @@ title %title%...
 echo.
 echo %title%...
 
-set command=%process_app% --quality=%QUALITY% --speed=0 --overwrite -o %output% "%filename%"
+set command=%process_app% --quality=%QUALITY% --speed=1 --overwrite --depth=8 -o %output% "%filename%"
 
 echo %command%>> %log%
 %command%
